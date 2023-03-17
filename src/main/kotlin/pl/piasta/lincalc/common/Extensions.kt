@@ -1,14 +1,44 @@
 package pl.piasta.lincalc.common
 
-import java.util.concurrent.CountDownLatch
-import javafx.beans.binding.Bindings.createStringBinding
-import javafx.beans.binding.IntegerExpression
-import javafx.beans.binding.StringBinding
-import javafx.scene.image.Image
-import javafx.scene.image.ImageView
-import kotlin.time.Duration.Companion.days
-import kotlin.time.Duration.Companion.seconds
-import tornadofx.FXTask
-import tornadofx.runLater
+import javafx.event.EventTarget
+import javafx.scene.Node
+import pl.piasta.lincalc.ui.main.control.DigitInputButton
+import pl.piasta.lincalc.ui.main.control.DigitalScreen
+import pl.piasta.lincalc.ui.main.control.ExpressionFormatButton
+import pl.piasta.lincalc.ui.main.control.OperatorButton
+import pl.piasta.lincalc.ui.main.control.TrigonometricFunctionButton
+import tornadofx.attachTo
+import tornadofx.label
 
-fun Image.asView() = ImageView(this)
+fun EventTarget.dummy() = label()
+
+fun EventTarget.digitalScreen(value: String? = null, op: DigitalScreen.() -> Unit = {}) =
+    DigitalScreen().attachTo(this, op) {
+        if (value != null) it.text = value
+    }
+
+fun EventTarget.digitInputButton(text: String = "", graphic: Node? = null, op: DigitInputButton.() -> Unit = {}) =
+    DigitInputButton(text).attachTo(this, op) {
+        if (graphic != null) it.graphic = graphic
+    }
+
+fun EventTarget.expressionFormatButton(
+    text: String = "",
+    graphic: Node? = null,
+    op: ExpressionFormatButton.() -> Unit = {}
+) = ExpressionFormatButton(text).attachTo(this, op) {
+    if (graphic != null) it.graphic = graphic
+}
+
+fun EventTarget.operatorButton(text: String = "", graphic: Node? = null, op: OperatorButton.() -> Unit = {}) =
+    OperatorButton(text).attachTo(this, op) {
+        if (graphic != null) it.graphic = graphic
+    }
+
+fun EventTarget.trigonometricFunctionButton(
+    text: String = "",
+    graphic: Node? = null,
+    op: TrigonometricFunctionButton.() -> Unit = {}
+) = TrigonometricFunctionButton(text).attachTo(this, op) {
+    if (graphic != null) it.graphic = graphic
+}
