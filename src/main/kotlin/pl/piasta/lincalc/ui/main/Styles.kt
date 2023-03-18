@@ -1,18 +1,14 @@
 package pl.piasta.lincalc.ui.main
 
 import javafx.geometry.Pos.CENTER_RIGHT
+import javafx.scene.effect.BlurType
+import javafx.scene.effect.InnerShadow
 import javafx.scene.paint.Color.BLACK
 import javafx.scene.paint.Color.RED
 import javafx.scene.paint.Color.WHITE
 import javafx.scene.text.FontWeight.BOLD
 import pl.piasta.lincalc.common.Constants.FONT_ASSETS
-import tornadofx.Stylesheet
-import tornadofx.box
-import tornadofx.c
-import tornadofx.cssclass
-import tornadofx.em
-import tornadofx.loadFont
-import tornadofx.px
+import tornadofx.*
 
 internal class Styles : Stylesheet() {
     companion object {
@@ -51,6 +47,9 @@ internal class Styles : Stylesheet() {
             backgroundRadius += box(5.em)
             fontSize = 18.px
             fontWeight = BOLD
+            pressed {
+                effect = InnerShadow(BlurType.GAUSSIAN, c(255, 255, 255, 0.5), 4.0, 0.0, 0.0, 3.0)
+            }
         }
         trigonometricFunctionButton {
             prefHeight = 30.px
@@ -59,10 +58,16 @@ internal class Styles : Stylesheet() {
         operatorButton {
             backgroundColor += c(254, 148, 0)
             textFill = WHITE
+            pressed {
+                effect = InnerShadow(BlurType.GAUSSIAN, c(0, 0, 0, 0.5), 4.0, 0.0, 0.0, 3.0)
+            }
         }
         digitInputButton {
             backgroundColor += c(51, 51, 51)
             textFill = WHITE
+            pressed {
+                effect = InnerShadow(BlurType.GAUSSIAN, c(0, 0, 0, 0.5), 4.0, 0.0, 0.0, 3.0)
+            }
         }
         expressionFormatButton {
             backgroundColor += c(166, 166, 166)
