@@ -1,9 +1,9 @@
 package pl.piasta.lincalc.ui.main.control
 
 import pl.piasta.lincalc.ui.main.Styles.Companion.trigonometricFunctionButton
-import tornadofx.addClass
+import tornadofx.*
 
-class TrigonometricFunctionButton(text: String) : CircleButton(text) {
+class TrigonometricFunctionButton(text: String) : FlatCircleButton(text) {
     init {
         addClass(trigonometricFunctionButton)
     }

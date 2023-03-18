@@ -2,18 +2,13 @@ package pl.piasta.lincalc.ui.main.view
 
 import javafx.scene.layout.Priority.ALWAYS
 import pl.piasta.lincalc.common.digitInputButton
-import pl.piasta.lincalc.common.dummy
 import pl.piasta.lincalc.common.expressionFormatButton
+import pl.piasta.lincalc.common.flatCircleButton
 import pl.piasta.lincalc.common.operatorButton
 import pl.piasta.lincalc.common.trigonometricFunctionButton
+import pl.piasta.lincalc.ui.main.Styles.Companion.clearButton
 import pl.piasta.lincalc.ui.main.Styles.Companion.keypadPane
-import tornadofx.View
-import tornadofx.addClass
-import tornadofx.constraintsForColumn
-import tornadofx.constraintsForRow
-import tornadofx.gridpane
-import tornadofx.row
-import tornadofx.vgrow
+import tornadofx.*
 
 internal class KeypadView : View("Keypad Fragment") {
 
@@ -26,22 +21,29 @@ internal class KeypadView : View("Keypad Fragment") {
             constraintsForRow(it).vgrow = ALWAYS
         }
         row {
-            dummy()
-            dummy()
-            dummy()
+            flatCircleButton {
+                text = "C"
+                addClass(clearButton)
+            }
             trigonometricFunctionButton {
                 text = "sin"
             }
+            trigonometricFunctionButton {
+                text = "cos"
+            }
+            trigonometricFunctionButton {
+                text = "tan"
+            }
         }
         row {
-            expressionFormatButton {
-                text = "C"
-            }
             expressionFormatButton {
                 text = "⁺∕₋"
             }
             expressionFormatButton {
                 text = "%"
+            }
+            expressionFormatButton {
+                text = "√"
             }
             operatorButton {
                 text = "÷"

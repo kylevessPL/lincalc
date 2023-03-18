@@ -1,7 +1,7 @@
 package pl.piasta.lincalc.ui.main
 
 import javafx.geometry.Pos.CENTER_RIGHT
-import javafx.scene.effect.BlurType
+import javafx.scene.effect.BlurType.GAUSSIAN
 import javafx.scene.effect.InnerShadow
 import javafx.scene.paint.Color.BLACK
 import javafx.scene.paint.Color.RED
@@ -16,6 +16,8 @@ internal class Styles : Stylesheet() {
         val keypadPane by cssclass()
         val digitalScreen by cssclass()
         val circleButton by cssclass()
+        val flatCircleButton by cssclass()
+        val clearButton by cssclass()
         val trigonometricFunctionButton by cssclass()
         val operatorButton by cssclass()
         val digitInputButton by cssclass()
@@ -48,25 +50,34 @@ internal class Styles : Stylesheet() {
             fontSize = 18.px
             fontWeight = BOLD
             pressed {
-                effect = InnerShadow(BlurType.GAUSSIAN, c(255, 255, 255, 0.5), 4.0, 0.0, 0.0, 3.0)
+                effect = InnerShadow(GAUSSIAN, c(255, 255, 255, 0.5), 4.0, 0.0, 0.0, 3.0)
+            }
+        }
+        flatCircleButton {
+            prefHeight = 30.px
+        }
+        clearButton {
+            backgroundColor += c(51, 105, 30)
+            textFill = WHITE
+            pressed {
+                effect = InnerShadow(GAUSSIAN, c(0, 0, 0, 0.5), 4.0, 0.0, 0.0, 3.0)
             }
         }
         trigonometricFunctionButton {
-            prefHeight = 30.px
             backgroundColor += c(252, 214, 8)
         }
         operatorButton {
             backgroundColor += c(254, 148, 0)
             textFill = WHITE
             pressed {
-                effect = InnerShadow(BlurType.GAUSSIAN, c(0, 0, 0, 0.5), 4.0, 0.0, 0.0, 3.0)
+                effect = InnerShadow(GAUSSIAN, c(0, 0, 0, 0.5), 4.0, 0.0, 0.0, 3.0)
             }
         }
         digitInputButton {
             backgroundColor += c(51, 51, 51)
             textFill = WHITE
             pressed {
-                effect = InnerShadow(BlurType.GAUSSIAN, c(0, 0, 0, 0.5), 4.0, 0.0, 0.0, 3.0)
+                effect = InnerShadow(GAUSSIAN, c(0, 0, 0, 0.5), 4.0, 0.0, 0.0, 3.0)
             }
         }
         expressionFormatButton {
