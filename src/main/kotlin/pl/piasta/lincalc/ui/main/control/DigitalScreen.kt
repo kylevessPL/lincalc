@@ -16,7 +16,6 @@ import tornadofx.*
 class DigitalScreen : TextField() {
     private companion object {
         const val FONT_SIZE_MIN = 25.0
-        const val TEXT_FIELD_PADDING = 20.0
         val digitalFont = "$FONT_ASSETS/$DIGITAL_FONT".toFont(64.0)
     }
 
@@ -57,7 +56,7 @@ class DigitalScreen : TextField() {
         val tmpText = Text(newValue)
         tmpText.font = digitalFont
         val textWidth = tmpText.layoutBounds.width
-        val maxWidth = width - 2 * TEXT_FIELD_PADDING
+        val maxWidth = width - 2 * padding.horizontal
         return if (textWidth > maxWidth) {
             val calculatedSize = digitalFont!!.size * maxWidth / textWidth
             Font.font(digitalFont.family, calculatedSize.coerceAtLeast(FONT_SIZE_MIN))
