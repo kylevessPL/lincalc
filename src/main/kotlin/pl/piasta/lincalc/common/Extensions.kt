@@ -1,25 +1,68 @@
 package pl.piasta.lincalc.common
 
+import java.lang.invoke.MethodHandles
+import java.math.BigDecimal
+import javafx.beans.binding.Bindings
+import javafx.beans.binding.BooleanBinding
+import javafx.beans.binding.StringExpression
+import javafx.beans.property.SimpleStringProperty
+import javafx.beans.value.ObservableValue
 import javafx.event.EventTarget
 import javafx.scene.Node
+import javafx.scene.text.Font
+import pl.piasta.lincalc.common.Constants.DECIMAL_DOT
+import pl.piasta.lincalc.common.Constants.ZERO
+import pl.piasta.lincalc.ui.main.control.ClearButton
 import pl.piasta.lincalc.ui.main.control.DigitInputButton
 import pl.piasta.lincalc.ui.main.control.DigitalScreen
-import pl.piasta.lincalc.ui.main.control.ExpressionFormatButton
-import pl.piasta.lincalc.ui.main.control.FlatCircleButton
+import pl.piasta.lincalc.ui.main.control.FunctionButton
+import pl.piasta.lincalc.ui.main.control.InputFormatButton
 import pl.piasta.lincalc.ui.main.control.OperatorButton
 import pl.piasta.lincalc.ui.main.control.TrigonometricFunctionButton
 import tornadofx.*
+
+val Double.Companion.ZERO: Double
+    get() = 0.0
+
+val String.Companion.EMPTY: String
+    get() = ""
+
+val String.Companion.NaN: String
+    get() = "NaN"
+
+fun String.isNaN() = this == String.NaN
+
+fun String.toBigDecimal(): BigDecimal {
+    val value = if (isNaN()) ZERO else this.takeIf { endsWith(DECIMAL_DOT) }
+        ?.dropLast(1)
+        ?: this
+    return BigDecimal(value)
+}
+
+fun String.toFont(size: Number) = MethodHandles.lookup()
+    .lookupClass()
+    .getResourceAsStream(this)?.use { Font.loadFont(it, size.toDouble()) }
+
+fun StringExpression.isNaN(): BooleanBinding = Bindings.equal(String.NaN, this)
+
+fun SimpleStringProperty.valueOrDefault(default: String) = value.takeIf { it != String.NaN } ?: default
 
 fun EventTarget.digitalScreen(value: String? = null, op: DigitalScreen.() -> Unit = {}) =
     DigitalScreen().attachTo(this, op) {
         if (value != null) it.text = value
     }
 
-fun EventTarget.flatCircleButton(
+fun EventTarget.digitalScreen(property: ObservableValue<String>, op: DigitalScreen.() -> Unit = {}) =
+    digitalScreen().apply {
+        bind(property)
+        op(this)
+    }
+
+fun EventTarget.clearButton(
     text: String = "",
     graphic: Node? = null,
-    op: FlatCircleButton.() -> Unit = {}
-) = FlatCircleButton(text).attachTo(this, op) {
+    op: ClearButton.() -> Unit = {}
+) = ClearButton(text).attachTo(this, op) {
     if (graphic != null) it.graphic = graphic
 }
 
@@ -36,11 +79,16 @@ fun EventTarget.digitInputButton(text: String = "", graphic: Node? = null, op: D
         if (graphic != null) it.graphic = graphic
     }
 
-fun EventTarget.expressionFormatButton(
+fun EventTarget.inputFormatButton(text: String = "", graphic: Node? = null, op: InputFormatButton.() -> Unit = {}) =
+    InputFormatButton(text).attachTo(this, op) {
+        if (graphic != null) it.graphic = graphic
+    }
+
+fun EventTarget.functionButton(
     text: String = "",
     graphic: Node? = null,
-    op: ExpressionFormatButton.() -> Unit = {}
-) = ExpressionFormatButton(text).attachTo(this, op) {
+    op: FunctionButton.() -> Unit = {}
+) = FunctionButton(text).attachTo(this, op) {
     if (graphic != null) it.graphic = graphic
 }
 

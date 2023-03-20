@@ -1,17 +1,16 @@
 package pl.piasta.lincalc.ui.main
 
-import pl.piasta.lincalc.ui.main.view.KeypadView
-import pl.piasta.lincalc.ui.main.view.ScreenView
-import tornadofx.View
-import tornadofx.vbox
+import pl.piasta.lincalc.ui.main.fragment.KeypadFragment
+import pl.piasta.lincalc.ui.main.fragment.ScreenFragment
+import tornadofx.*
 
 internal class MainView : View("LinCalc") {
 
-    private val screenView: ScreenView by inject()
-    private val keypadView: KeypadView by inject()
+    private val screenFragment: ScreenFragment by inject()
+    private val keypadFragment: KeypadFragment by inject()
 
     override val root = vbox {
-        add(screenView)
-        add(keypadView)
+        add(screenFragment)
+        add(keypadFragment)
     }
 }

@@ -10,7 +10,7 @@ group = "pl.piasta"
 version = "1.0-SNAPSHOT"
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
+    kotlinOptions.jvmTarget = "11"
 }
 
 repositories {
@@ -25,8 +25,11 @@ javafx {
 
 dependencies {
     implementation("no.tornado:tornadofx:2.0.0-SNAPSHOT")
+    implementation("ch.obermuhlner:kotlin-big-math:2.3.0")
+    implementation("ch.obermuhlner:big-math:2.3.2")
 }
 
 application {
     mainClass.set("pl.piasta.lincalc.LinCalcKt")
+    applicationDefaultJvmArgs += "-Dnashorn.args=--no-deprecation-warning"
 }

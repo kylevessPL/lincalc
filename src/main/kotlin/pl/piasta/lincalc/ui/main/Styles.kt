@@ -7,27 +7,25 @@ import javafx.scene.paint.Color.BLACK
 import javafx.scene.paint.Color.RED
 import javafx.scene.paint.Color.WHITE
 import javafx.scene.text.FontWeight.BOLD
-import pl.piasta.lincalc.common.Constants.FONT_ASSETS
 import tornadofx.*
 
 internal class Styles : Stylesheet() {
     companion object {
-        val digitalFont = loadFont("$FONT_ASSETS/digital-7.ttf", 48.0)
         val keypadPane by cssclass()
         val digitalScreen by cssclass()
         val circleButton by cssclass()
-        val flatCircleButton by cssclass()
         val clearButton by cssclass()
         val trigonometricFunctionButton by cssclass()
         val operatorButton by cssclass()
         val digitInputButton by cssclass()
-        val expressionFormatButton by cssclass()
+        val inputFormatButton by cssclass()
+        val functionButton by cssclass()
     }
 
     init {
         root {
-            prefWidth = 345.px
-            prefHeight = 574.px
+            prefWidth = 306.px
+            prefHeight = 468.px
             backgroundColor += BLACK
         }
         keypadPane {
@@ -36,25 +34,19 @@ internal class Styles : Stylesheet() {
             vgap = 20.px
         }
         digitalScreen {
+            padding = box(20.px)
+            prefHeight = 95.px
             alignment = CENTER_RIGHT
             backgroundColor += BLACK
             textFill = RED
-            digitalFont?.let {
-                font = it
-            }
         }
         circleButton {
-            prefWidth = 60.px
-            prefHeight = 60.px
-            backgroundRadius += box(5.em)
+            backgroundRadius += box(4.px)
             fontSize = 18.px
             fontWeight = BOLD
             pressed {
                 effect = InnerShadow(GAUSSIAN, c(255, 255, 255, 0.5), 4.0, 0.0, 0.0, 3.0)
             }
-        }
-        flatCircleButton {
-            prefHeight = 30.px
         }
         clearButton {
             backgroundColor += c(51, 105, 30)
@@ -73,14 +65,14 @@ internal class Styles : Stylesheet() {
                 effect = InnerShadow(GAUSSIAN, c(0, 0, 0, 0.5), 4.0, 0.0, 0.0, 3.0)
             }
         }
-        digitInputButton {
+        s(digitInputButton, inputFormatButton) {
             backgroundColor += c(51, 51, 51)
             textFill = WHITE
             pressed {
                 effect = InnerShadow(GAUSSIAN, c(0, 0, 0, 0.5), 4.0, 0.0, 0.0, 3.0)
             }
         }
-        expressionFormatButton {
+        functionButton {
             backgroundColor += c(166, 166, 166)
         }
     }
