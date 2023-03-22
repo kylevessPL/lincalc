@@ -9,6 +9,7 @@ import pl.piasta.lincalc.common.EMPTY
 import pl.piasta.lincalc.common.NaN
 import pl.piasta.lincalc.common.isNaN
 import pl.piasta.lincalc.common.orDefault
+import pl.piasta.lincalc.common.stripTrailingZeros
 import pl.piasta.lincalc.common.takeLastWhileInclusive
 import pl.piasta.lincalc.common.toBigDecimal
 import pl.piasta.lincalc.common.valueOrDefault
@@ -78,11 +79,10 @@ class MainViewModel : ViewModel() {
                 currentExpression = displayValue.value + part
             }
             MathEvaluator.evaluateExpression(currentExpression)
-                ?.stripTrailingZeros()
                 ?.toString()
                 ?: String.NaN
         } ui {
-            displayValue.value = it
+            displayValue.value = it.stripTrailingZeros()
             currentExpression += SIGN_EQUALS
             latestInput = null
         }
@@ -100,11 +100,10 @@ class MainViewModel : ViewModel() {
                 currentExpression = ""
             currentExpression += displayValue.value + operation.sign
             MathEvaluator.evaluateExpression(currentExpression.dropLast(1))
-                ?.stripTrailingZeros()
                 ?.toString()
                 ?: String.NaN
         } ui {
-            it?.let { displayValue.value = it }
+            it?.let { displayValue.value = it.stripTrailingZeros() }
             latestInput = null
         }
     }
@@ -132,7 +131,7 @@ class MainViewModel : ViewModel() {
                 }
             }.getOrDefault(String.NaN)
         } ui {
-            displayValue.value = it
+            displayValue.value = it.stripTrailingZeros()
             if (currentExpression.endsWith(SIGN_EQUALS))
                 currentExpression = String.EMPTY
             if (function != NEGATION) latestInput = null

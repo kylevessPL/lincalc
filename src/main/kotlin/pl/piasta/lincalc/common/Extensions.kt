@@ -34,6 +34,13 @@ fun String.isNaN() = this == String.NaN
 
 fun String?.orDefault(value: String) = if (isNullOrEmpty()) value else this
 
+fun String.stripTrailingZeros() = takeIf { contains(DECIMAL_DOT) and endsWith(ZERO) }?.let {
+    val stripped = dropLastWhile { it == '0' }
+    if (stripped.endsWith(DECIMAL_DOT))
+        stripped.dropLast(1)
+    else stripped
+} ?: this
+
 inline fun String.takeLastWhileInclusive(predicate: (Char) -> Boolean): String {
     for (index in lastIndex downTo 0) {
         if (!predicate(this[index])) {
