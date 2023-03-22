@@ -1,7 +1,7 @@
 package pl.piasta.lincalc.ui.main.control
 
 import javafx.beans.value.ChangeListener
-import javafx.scene.Cursor.DEFAULT
+import javafx.scene.Cursor.HAND
 import javafx.scene.control.TextField
 import javafx.scene.text.Font
 import javafx.scene.text.Text
@@ -15,14 +15,14 @@ import tornadofx.*
 
 class DigitalScreen : TextField() {
     private companion object {
-        const val FONT_SIZE_MIN = 25.0
+        const val FONT_SIZE_MIN = 18.0
         val digitalFont = "$FONT_ASSETS/$DIGITAL_FONT".toFont(64.0)
     }
 
     init {
         isEditable = false
         font = digitalFont
-        cursor = DEFAULT
+        cursor = HAND
         selectedTextProperty().addListener { _, _, _ ->
             deselect()
         }
@@ -56,7 +56,7 @@ class DigitalScreen : TextField() {
         val tmpText = Text(newValue)
         tmpText.font = digitalFont
         val textWidth = tmpText.layoutBounds.width
-        val maxWidth = width - 2 * padding.horizontal
+        val maxWidth = width - 2 * padding.horizontal - 2
         return if (textWidth > maxWidth) {
             val calculatedSize = digitalFont!!.size * maxWidth / textWidth
             Font.font(digitalFont.family, calculatedSize.coerceAtLeast(FONT_SIZE_MIN))

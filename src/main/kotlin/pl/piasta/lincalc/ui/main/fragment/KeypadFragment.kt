@@ -13,6 +13,10 @@ import pl.piasta.lincalc.math.MathFunction.NEGATION
 import pl.piasta.lincalc.math.MathFunction.PERCENTAGE
 import pl.piasta.lincalc.math.MathFunction.SINE
 import pl.piasta.lincalc.math.MathFunction.SQUARE_ROOT
+import pl.piasta.lincalc.math.MathOperator.ADD
+import pl.piasta.lincalc.math.MathOperator.DIVIDE
+import pl.piasta.lincalc.math.MathOperator.MULTIPLY
+import pl.piasta.lincalc.math.MathOperator.SUBTRACT
 import pl.piasta.lincalc.ui.main.MainViewModel
 import pl.piasta.lincalc.ui.main.Styles.Companion.keypadPane
 import pl.piasta.lincalc.ui.main.control.ClearButton
@@ -49,25 +53,33 @@ internal class KeypadFragment : View("Keypad Fragment") {
             functionButton("√").action {
                 vm.convertByFunction(SQUARE_ROOT)
             }
-            operatorButton("÷")
+            operatorButton("÷").action {
+                vm.doMathOperation(DIVIDE)
+            }
         }
         row {
             digitInputButton("7")
             digitInputButton("8")
             digitInputButton("9")
-            operatorButton("×")
+            operatorButton("×").action {
+                vm.doMathOperation(MULTIPLY)
+            }
         }
         row {
             digitInputButton("4")
             digitInputButton("5")
             digitInputButton("6")
-            operatorButton("-")
+            operatorButton("-").action {
+                vm.doMathOperation(SUBTRACT)
+            }
         }
         row {
             digitInputButton("1")
             digitInputButton("2")
             digitInputButton("3")
-            operatorButton("+")
+            operatorButton("+").action {
+                vm.doMathOperation(ADD)
+            }
         }
         row {
             digitInputButton("0")
@@ -77,7 +89,9 @@ internal class KeypadFragment : View("Keypad Fragment") {
             inputFormatButton("⌫").action {
                 vm.undoInput()
             }
-            operatorButton("=")
+            operatorButton("=").action {
+                vm.evaluate()
+            }
         }
         (0..3).forEach {
             constraintsForColumn(it).apply {

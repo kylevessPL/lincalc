@@ -5,6 +5,7 @@ object Constants {
     const val FONT_ASSETS = "/assets/fonts"
     const val DIGITAL_FONT = "digital-7.ttf"
     const val DECIMAL_DOT = '.'
+    const val SIGN_EQUALS = '='
     const val SIGN_MINUS = '-'
     const val ZERO = "0"
 }

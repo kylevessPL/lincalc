@@ -32,6 +32,17 @@ val String.Companion.NaN: String
 
 fun String.isNaN() = this == String.NaN
 
+fun String?.orDefault(value: String) = if (isNullOrEmpty()) value else this
+
+inline fun String.takeLastWhileInclusive(predicate: (Char) -> Boolean): String {
+    for (index in lastIndex downTo 0) {
+        if (!predicate(this[index])) {
+            return substring(index)
+        }
+    }
+    return this
+}
+
 fun String.toBigDecimal(): BigDecimal {
     val value = if (isNaN()) ZERO else this.takeIf { endsWith(DECIMAL_DOT) }
         ?.dropLast(1)
