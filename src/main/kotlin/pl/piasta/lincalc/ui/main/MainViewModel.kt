@@ -10,7 +10,7 @@ import pl.piasta.lincalc.common.NaN
 import pl.piasta.lincalc.common.isNaN
 import pl.piasta.lincalc.common.orDefault
 import pl.piasta.lincalc.common.stripTrailingZeros
-import pl.piasta.lincalc.common.takeLastWhileInclusive
+import pl.piasta.lincalc.common.takeLastUntilFormerAndLatter
 import pl.piasta.lincalc.common.toBigDecimal
 import pl.piasta.lincalc.common.valueOrDefault
 import pl.piasta.lincalc.math.MathEvaluator
@@ -25,7 +25,7 @@ import pl.piasta.lincalc.math.MathFunction.PERCENTAGE
 import pl.piasta.lincalc.math.MathFunction.SINE
 import pl.piasta.lincalc.math.MathFunction.SQUARE_ROOT
 import pl.piasta.lincalc.math.MathOperator
-import tornadofx.*
+import tornadofx.ViewModel
 
 class MainViewModel : ViewModel() {
     val displayValue = SimpleStringProperty(ZERO)
@@ -75,7 +75,10 @@ class MainViewModel : ViewModel() {
             } else {
                 val part = currentExpression
                     .dropLast(1)
-                    .takeLastWhileInclusive { ch -> MathOperator.values().none { ch.toString() == it.sign } }
+                    .takeLastUntilFormerAndLatter(
+                        { ch -> MathOperator.values().any { ch.toString() == it.sign } },
+                        { ch -> ch.isDigit() }
+                    )
                 currentExpression = displayValue.value + part
             }
             MathEvaluator.evaluateExpression(currentExpression)
@@ -90,8 +93,8 @@ class MainViewModel : ViewModel() {
 
     fun doMathOperation(operation: MathOperator) {
         runAsync {
-            if (latestInput.isNullOrEmpty() and
-                MathOperator.values().any { currentExpression.lastOrNull().toString() == it.sign }
+            if (latestInput.isNullOrEmpty() and MathOperator.values()
+                    .any { currentExpression.lastOrNull().toString() == it.sign }
             ) {
                 currentExpression = currentExpression.dropLast(1) + operation.sign
                 return@runAsync null

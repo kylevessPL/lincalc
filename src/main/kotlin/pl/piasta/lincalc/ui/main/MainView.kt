@@ -2,7 +2,8 @@ package pl.piasta.lincalc.ui.main
 
 import pl.piasta.lincalc.ui.main.fragment.KeypadFragment
 import pl.piasta.lincalc.ui.main.fragment.ScreenFragment
-import tornadofx.*
+import tornadofx.View
+import tornadofx.vbox
 
 internal class MainView : View("LinCalc") {
 

@@ -21,7 +21,15 @@ import pl.piasta.lincalc.ui.main.MainViewModel
 import pl.piasta.lincalc.ui.main.Styles.Companion.keypadPane
 import pl.piasta.lincalc.ui.main.control.ClearButton
 import pl.piasta.lincalc.ui.main.control.DigitInputButton
-import tornadofx.*
+import tornadofx.View
+import tornadofx.action
+import tornadofx.addClass
+import tornadofx.constraintsForColumn
+import tornadofx.constraintsForRow
+import tornadofx.disableWhen
+import tornadofx.gridpane
+import tornadofx.row
+import tornadofx.vgrow
 
 internal class KeypadFragment : View("Keypad Fragment") {
 

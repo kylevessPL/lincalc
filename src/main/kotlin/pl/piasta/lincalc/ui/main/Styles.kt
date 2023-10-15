@@ -7,7 +7,11 @@ import javafx.scene.paint.Color.BLACK
 import javafx.scene.paint.Color.RED
 import javafx.scene.paint.Color.WHITE
 import javafx.scene.text.FontWeight.BOLD
-import tornadofx.*
+import tornadofx.Stylesheet
+import tornadofx.box
+import tornadofx.c
+import tornadofx.cssclass
+import tornadofx.px
 
 internal class Styles : Stylesheet() {
     companion object {

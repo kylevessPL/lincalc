@@ -19,7 +19,8 @@ import pl.piasta.lincalc.ui.main.control.FunctionButton
 import pl.piasta.lincalc.ui.main.control.InputFormatButton
 import pl.piasta.lincalc.ui.main.control.OperatorButton
 import pl.piasta.lincalc.ui.main.control.TrigonometricFunctionButton
-import tornadofx.*
+import tornadofx.attachTo
+import tornadofx.bind
 
 val Double.Companion.ZERO: Double
     get() = 0.0
@@ -41,9 +42,9 @@ fun String.stripTrailingZeros() = takeIf { contains(DECIMAL_DOT) and endsWith(ZE
     else stripped
 } ?: this
 
-inline fun String.takeLastWhileInclusive(predicate: (Char) -> Boolean): String {
+inline fun String.takeLastUntilFormerAndLatter(former: (Char) -> Boolean, latter: (Char) -> Boolean): String {
     for (index in lastIndex downTo 0) {
-        if (!predicate(this[index])) {
+        if (index > 0 && former(this[index]) && latter(this[index - 1])) {
             return substring(index)
         }
     }

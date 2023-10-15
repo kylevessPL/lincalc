@@ -11,7 +11,10 @@ import pl.piasta.lincalc.common.EMPTY
 import pl.piasta.lincalc.common.ZERO
 import pl.piasta.lincalc.common.toFont
 import pl.piasta.lincalc.ui.main.Styles.Companion.digitalScreen
-import tornadofx.*
+import tornadofx.addClass
+import tornadofx.horizontal
+import tornadofx.runAsync
+import tornadofx.ui
 
 class DigitalScreen : TextField() {
     private companion object {

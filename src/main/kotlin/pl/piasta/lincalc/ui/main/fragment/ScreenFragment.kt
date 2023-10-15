@@ -3,7 +3,9 @@ package pl.piasta.lincalc.ui.main.fragment
 import javafx.scene.layout.Priority.ALWAYS
 import pl.piasta.lincalc.common.digitalScreen
 import pl.piasta.lincalc.ui.main.MainViewModel
-import tornadofx.*
+import tornadofx.View
+import tornadofx.hbox
+import tornadofx.hgrow
 
 internal class ScreenFragment : View("Screen Fragment") {
 
