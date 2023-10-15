@@ -8,4 +8,5 @@ object Constants {
     const val SIGN_EQUALS = '='
     const val SIGN_MINUS = '-'
     const val ZERO = "0"
+    const val PRECISION = 15
 }

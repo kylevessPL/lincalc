@@ -5,10 +5,9 @@ import ch.obermuhlner.math.big.DefaultBigDecimalMath.createLocalMathContext
 import ch.obermuhlner.math.big.DefaultBigDecimalMath.sin
 import ch.obermuhlner.math.big.DefaultBigDecimalMath.sqrt
 import java.math.BigDecimal
+import pl.piasta.lincalc.common.Constants.PRECISION
 
 object MathExtensions {
-    private const val PRECISION = 32
-
     fun BigDecimal.percentage(): BigDecimal = divide(BigDecimal(100))
 
     fun BigDecimal.sqrt(): BigDecimal = createLocalMathContext(PRECISION).use { sqrt(this) }
